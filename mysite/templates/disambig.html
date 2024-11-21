@@ -1,0 +1,15 @@
+<html>
+<body>
+{%if okay%}
+	<p> There are {{degrees_sep|length}} degrees of separation between {{first_band}} and {{second_band}}</p>
+		<ol>
+		{%for i in degrees_sep%}
+			<li>{{i}}</li>
+		{%endfor%}
+		</ol>
+{%else%}
+	<p> These bands are not connected </p>
+{%endif%}
+<a href="http://666degrees.pythonanywhere.com/">Click here to try another pair of bands.</a>
+</body>
+</html>

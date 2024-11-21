@@ -1,0 +1,23 @@
+<html>
+<body>
+{%if first_okay and second_okay %}
+<form name="both_okay" action="/ambig" method="POST">
+	<p>I'm just checking if both band names are in the database.</p>
+	<p>Looks like you're okay, so just sit tight and we'll keep going.</p>
+	<input type="hidden" name="first_band" id="first_band" value="{{first_band}}" />
+	<input type="hidden" name="second_band" id="second_band" value="{{second_band}}" />
+	<script type="text/javascript">
+		document.both_okay.submit();
+	</script>
+{%elif first_okay %}
+<p>{{second_band}} is not in the database. Make sure you've spelled it correctly (including umlauts). If that still doesn't work, make sure that the band is listed on Metal Archives.</p>
+<a href="http://666degrees.pythonanywhere.com/">Click here to try again.</a>
+{%elif second_okay %}
+<p>{{first_band}} is not in the database. Make sure you've spelled it correctly (including umlauts). If that still doesn't work, make sure that the band is listed on Metal Archives.</p>
+<a href="http://666degrees.pythonanywhere.com/">Click here to try again.</a>
+{%else%}
+<p>Neither provided bandname is in the database. Make sure you've spelled them correctly (including umlauts). If that still doesn't work, make sure that the bands are listed on Metal Archives.</i></p>
+<a href="http://666degrees.pythonanywhere.com/">Click here to try again.</a>
+{%endif%}
+</body>
+</html>

@@ -1,0 +1,101 @@
+<html>
+<head>
+	<style>
+	body {
+		  /* Center the form on the page */
+		  text-align: center;
+		}
+
+		form {
+		  display: inline-block;
+		  /* Form outline */
+		  padding: 1em;
+		  border: 1px solid #ccc;
+		  border-radius: 1em;
+		}
+
+		ul {
+		  list-style: none;
+		  padding: 0;
+		  margin: 0;
+		}
+
+		form li + li {
+		  margin-top: 1em;
+		}
+
+		label {
+		  /* Uniform size & alignment */
+		  display: inline-block;
+		  min-width: 90px;
+		  text-align: right;
+		}
+
+		input,
+		textarea {
+		  /* To make sure that all text fields have the same font settings
+			 By default, textareas have a monospace font */
+		  font: 1em sans-serif;
+		  /* Uniform text field size */
+		  width: 300px;
+		  box-sizing: border-box;
+		  /* Match form field borders */
+		  border: 1px solid #999;
+		}
+
+		input:focus,
+		textarea:focus {
+		  /* Additional highlight for focused elements */
+		  border-color: #000;
+		}
+
+		textarea {
+		  /* Align multiline text fields with their labels */
+		  vertical-align: top;
+		  /* Provide space to type some text */
+		  height: 5em;
+		}
+
+		.button {
+		  /* Align buttons with the text fields */
+		  padding-left: 90px; /* same size as the label elements */
+		}
+
+		button {
+		  /* This extra margin represent roughly the same space as the space
+			 between the labels and their text fields */
+		  margin-left: 0.5em;
+		}
+
+	</style>
+
+</head>
+
+
+<body>
+<form action="/verify" method="POST">
+  <div>
+    <label for="first_band">Please enter the name of the first band.</label>
+    <input name="first_band" id="first_band" value="Bolt Thrower" />
+  </div>
+  <div>
+    <label for="second_band">Please enter the name of the second band.</label>
+    <input name="second_band" id="second_band" value="Black Sabbath" />
+  </div>
+  <div>
+    <button>Submit</button>
+  </div>
+</form>
+<p>Enter any two metal bands that were listed on <a href="https://www.metal-archives.com/">Metal Archives</a> as of 03/01/2024 to find the number of degrees of separation in between them.</p>
+<p>Please note that there are a few caveats.</p>
+<ol>
+    <li>All band names must be typed exactly how they are shown on Metal Archives. For instance, if one of the bands you're using is Motörhead, you would need to include the umlaut.</li>
+    <li>Some bands that, depending on your definition of metal, you might consider to be metal are not listed on Metal Archives. Led Zeppelin, for instance, is not present in the database. I do not control which bands are present on Metal Archives, so I don't have any control of what bands are in my database.</li>
+    <li>The script I'm using, such as it is, only creates a link between two bands if a musician has been in both. This includes live performances. It <i>does not</i> include guest appearances on albums. I'll work on fixing this issue at some point.</li>
+    <li>The presence of a band or artist in this list does not represent my endorsement of their beliefs, actions, or music. This website solely exists as an informative tool/source of trivia.</li>
+</ol>
+
+
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+<html>
+<body>
+<form name="disambig" action ="/disambig" method = "POST">
+{% if fbl|length > 1 %}
+	<p> There are {{fbl|length}} bands called {{first_band}}. Pick one. </p>
+	<ol>
+	{% for i in range(0,fbl|length) %}
+		<li><label for "unambig_fb">{{fbm[i]}}</label>
+			<input type="radio" name="unambig_fb" id="unambig_fb" value="{{fbl[i]}}" /></li>
+	{% endfor %}
+	</ol>
+{%else%}
+	<input type="hidden" id="unambig_fb" name="unambig_fb" value="{{fbl[0]}}" />
+{%endif%}
+{%if sbl|length > 1 %}
+<p> There are {{sbl|length}} bands called {{second_band}}. Pick one. </p>
+	<ol>
+	{% for i in range(0,sbl|length) %}
+				<li><label for "unambig_sb">{{sbm[i]}}</label>
+			<input type="radio" name="unambig_sb" id="unambig_sb" value="{{sbl[i]}}" /></li>
+	{% endfor %}
+	</ol>
+{% else%}
+	<input type="hidden" id="unambig_sb" name="unambig_sb" value="{{sbl[0]}}" />
+{%endif%}
+{% if fbl|length > 1 or sbl|length > 1 %}
+	<button>Submit</button>
+{% else %}
+	<p>This page checks if one or both of your inputs could refer to multiple bands</p>
+	<p>Did you there are 49 bands on Metal Archives named "Nemesis"?</p>
+	<p>Maybe don't name any new bands that if you're gonna start a new one.</p>
+	<script type="text/javascript">
+		document.disambig.submit();
+	</script>
+{%endif%}
+</form>
+</html>
+</body>

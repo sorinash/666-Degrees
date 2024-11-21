@@ -1,0 +1,25 @@
+<html>
+	<body>
+		{%if not okay%}
+			<p> {{bad_name_str}} </p>
+		{%elif not ambig%}
+			<p>SNACK TIME FOR BLIMPY</p>
+			<form name="ambiguous_band" action = "/ambig" method = "POST">
+				<input name="first_band" id="first_band" value="{{first_band}}" />
+				<input name="second_band" id="second_band" value="{{second_band}}" />
+			</form>
+			<script type="text/javascript">
+				document.ambiguous_band.submit();
+			</script>
+		{% else %}
+			<p> There are {{uselen}} degrees of separation
+				between {{first_band}} and {{second_band}}</p>
+			<ol>
+			{%for i in degrees_sep%}
+				<li>{{i}}</li>
+			{%endfor%}
+			</ol>
+		{% endif %}
+	</body>
+
+</html>
