@@ -1,38 +1,386 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>666 Degrees &mdash; Disambiguation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #111111;
+      --border:    #2a2a2a;
+      --border-hi: #444444;
+      --red:       #8b0000;
+      --red-hi:    #c0392b;
+      --text:      #d4d0c8;
+      --text-dim:  #7a756a;
+      --text-hi:   #f0ece0;
+      --gold:      #b8942a;
+      --gold-hi:   #d4aa3a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,0.012) 2px,
+          rgba(255,255,255,0.012) 4px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 780px;
+      padding: 0 2rem 4rem;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      padding: 3.5rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red-hi), transparent);
+    }
+
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      letter-spacing: 0.05em;
+      color: var(--text-hi);
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(139,0,0,0.5);
+    }
+
+    .site-title span { color: var(--red-hi); }
+    .site-title a { color: inherit; text-decoration: none; }
+
+    .site-subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 0.6rem;
+    }
+
+    /* ── Intro blurb (auto-submit path) ── */
+    .auto-submit-note {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    .auto-submit-note .spinner {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--border-hi);
+      border-top-color: var(--red-hi);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Disambig section ── */
+    .disambig-section {
+      margin-bottom: 2rem;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--red);
+      padding: 1.8rem 2.5rem;
+      position: relative;
+    }
+
+    .section-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 10%;
+      width: 30%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), transparent);
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-band-name {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--text-hi);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-count {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-bottom: 1.4rem;
+    }
+
+    .section-count strong {
+      color: var(--red-hi);
+      font-weight: 600;
+    }
+
+    /* ── Radio options ── */
+    .radio-list {
+      list-style: none;
+      padding: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .radio-list li {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .radio-list label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 0.25rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .radio-list label:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .radio-list input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--border-hi);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .radio-list input[type="radio"]:checked {
+      border-color: var(--red-hi);
+    }
+
+    .radio-list input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: var(--red-hi);
+      border-radius: 50%;
+    }
+
+    .radio-list input[type="radio"]:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(192,57,43,0.3);
+    }
+
+    .radio-label-text {
+      font-size: 0.97rem;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ── Submit button ── */
+    .submit-wrap {
+      margin-top: 2rem;
+    }
+
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 0.8rem 1.5rem;
+      background: var(--red);
+      color: #f0ece0;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--red-hi);
+      box-shadow: 0 0 18px rgba(192,57,43,0.35);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(1px);
+    }
+
+    /* ── Aside note ── */
+    .aside-note {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem;
+      border-left: 2px solid var(--border-hi);
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .aside-note .gold { color: var(--gold-hi); }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--border-hi);
+    }
+  </style>
+</head>
 <body>
-<form name="disambig" action ="/disambig" method = "POST">
-{% if fbl|length > 1 %}
-	<p> There are {{fbl|length}} bands called {{first_band}}. Pick one. </p>
-	<ol>
-	{% for i in range(0,fbl|length) %}
-		<li><label for "unambig_fb">{{fbm[i]}}</label>
-			<input type="radio" name="unambig_fb" id="unambig_fb" value="{{fbl[i]}}" /></li>
-	{% endfor %}
-	</ol>
-{%else%}
-	<input type="hidden" id="unambig_fb" name="unambig_fb" value="{{fbl[0]}}" />
-{%endif%}
-{%if sbl|length > 1 %}
-<p> There are {{sbl|length}} bands called {{second_band}}. Pick one. </p>
-	<ol>
-	{% for i in range(0,sbl|length) %}
-				<li><label for "unambig_sb">{{sbm[i]}}</label>
-			<input type="radio" name="unambig_sb" id="unambig_sb" value="{{sbl[i]}}" /></li>
-	{% endfor %}
-	</ol>
-{% else%}
-	<input type="hidden" id="unambig_sb" name="unambig_sb" value="{{sbl[0]}}" />
-{%endif%}
-{% if fbl|length > 1 or sbl|length > 1 %}
-	<button>Submit</button>
-{% else %}
-	<p>This page checks if one or both of your inputs could refer to multiple bands</p>
-	<p>Did you there are 49 bands on Metal Archives named "Nemesis"?</p>
-	<p>Thankfully it looks like you don't need to disambiguate anything.</p>
-	<script type="text/javascript">
-		document.disambig.submit();
-	</script>
-{%endif%}
-</form>
-</html>
+  <div class="page-wrap">
+    <header>
+      <h1 class="site-title"><a href="http://666degrees.pythonanywhere.com/"><span>666</span> Degrees</a></h1>
+      <p class="site-subtitle">Degrees of separation &mdash; metal bands</p>
+    </header>
+
+    <form name="disambig" action="/disambig" method="POST">
+
+      {% if fbl|length > 1 or sbl|length > 1 %}
+
+        {% if fbl|length > 1 %}
+          <div class="disambig-section">
+            <div class="section-card">
+              <p class="section-label">First band</p>
+              <p class="section-band-name">{{first_band}}</p>
+              <p class="section-count"><strong>{{fbl|length}}</strong> bands share this name. Pick one.</p>
+              <ol class="radio-list">
+                {% for i in range(0, fbl|length) %}
+                  <li>
+                    <label>
+                      <input type="radio" name="unambig_fb" value="{{fbl[i]}}" {% if loop.first %}checked{% endif %} />
+                      <span class="radio-label-text">{{fbm[i]}}</span>
+                    </label>
+                  </li>
+                {% endfor %}
+              </ol>
+            </div>
+          </div>
+        {% else %}
+          <input type="hidden" name="unambig_fb" value="{{fbl[0]}}" />
+        {% endif %}
+
+        {% if sbl|length > 1 %}
+          <div class="disambig-section">
+            <div class="section-card">
+              <p class="section-label">Second band</p>
+              <p class="section-band-name">{{second_band}}</p>
+              <p class="section-count"><strong>{{sbl|length}}</strong> bands share this name. Pick one.</p>
+              <ol class="radio-list">
+                {% for i in range(0, sbl|length) %}
+                  <li>
+                    <label>
+                      <input type="radio" name="unambig_sb" value="{{sbl[i]}}" {% if loop.first %}checked{% endif %} />
+                      <span class="radio-label-text">{{sbm[i]}}</span>
+                    </label>
+                  </li>
+                {% endfor %}
+              </ol>
+            </div>
+          </div>
+        {% else %}
+          <input type="hidden" name="unambig_sb" value="{{sbl[0]}}" />
+        {% endif %}
+
+        <div class="aside-note">
+          Did you know there are <span class="gold">49 bands</span> on Metal Archives named &ldquo;Nemesis&rdquo;? Thankfully, it doesn't look like you need to disambiguate anything here.
+        </div>
+
+        <div class="submit-wrap">
+          <button type="submit">Confirm Selection</button>
+        </div>
+
+      {% else %}
+
+        <input type="hidden" name="unambig_fb" value="{{fbl[0]}}" />
+        <input type="hidden" name="unambig_sb" value="{{sbl[0]}}" />
+
+        <div class="auto-submit-note">
+          <span class="spinner"></span>
+          Resolving bands&hellip;
+        </div>
+
+        <div class="aside-note">
+          Did you know there are <span class="gold">49 bands</span> on Metal Archives named &ldquo;Nemesis&rdquo;? Thankfully, it doesn't look like you need to disambiguate anything here.
+        </div>
+
+
+        <script type="text/javascript">
+          document.disambig.submit();
+        </script>
+
+      {% endif %}
+
+    </form>
+
+    <footer>
+      data sourced from metal-archives.com &nbsp;&bull;&nbsp; built by sorinash
+    </footer>
+  </div>
 </body>
+</html>
