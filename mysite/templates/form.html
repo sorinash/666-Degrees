@@ -1,101 +1,347 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<style>
-	body {
-		  /* Center the form on the page */
-		  text-align: center;
-		}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>666 Degrees</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #111111;
+      --border:    #2a2a2a;
+      --border-hi: #444444;
+      --red:       #8b0000;
+      --red-hi:    #c0392b;
+      --red-glow:  #ff2020;
+      --text:      #d4d0c8;
+      --text-dim:  #7a756a;
+      --text-hi:   #f0ece0;
+      --gold:      #b8942a;
+      --gold-hi:   #d4aa3a;
+    }
 
-		form {
-		  display: inline-block;
-		  /* Form outline */
-		  padding: 1em;
-		  border: 1px solid #ccc;
-		  border-radius: 1em;
-		}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-		ul {
-		  list-style: none;
-		  padding: 0;
-		  margin: 0;
-		}
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-		form li + li {
-		  margin-top: 1em;
-		}
+    /* ── Texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,0.012) 2px,
+          rgba(255,255,255,0.012) 4px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
 
-		label {
-		  /* Uniform size & alignment */
-		  display: inline-block;
-		  min-width: 90px;
-		  text-align: right;
-		}
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 780px;
+      padding: 0 2rem 4rem;
+    }
 
-		input,
-		textarea {
-		  /* To make sure that all text fields have the same font settings
-			 By default, textareas have a monospace font */
-		  font: 1em sans-serif;
-		  /* Uniform text field size */
-		  width: 300px;
-		  box-sizing: border-box;
-		  /* Match form field borders */
-		  border: 1px solid #999;
-		}
+    /* ── Header ── */
+    header {
+      text-align: center;
+      padding: 3.5rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
 
-		input:focus,
-		textarea:focus {
-		  /* Additional highlight for focused elements */
-		  border-color: #000;
-		}
+    header::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red-hi), transparent);
+    }
 
-		textarea {
-		  /* Align multiline text fields with their labels */
-		  vertical-align: top;
-		  /* Provide space to type some text */
-		  height: 5em;
-		}
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      letter-spacing: 0.05em;
+      color: var(--text-hi);
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(139,0,0,0.5);
+    }
 
-		.button {
-		  /* Align buttons with the text fields */
-		  padding-left: 90px; /* same size as the label elements */
-		}
+    .site-title span {
+      color: var(--red-hi);
+    }
 
-		button {
-		  /* This extra margin represent roughly the same space as the space
-			 between the labels and their text fields */
-		  margin-left: 0.5em;
-		}
+    .site-subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 0.6rem;
+    }
 
-	</style>
+    /* ── Divider ornament ── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      color: var(--border-hi);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+    }
+    .ornament::before,
+    .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
 
+    /* ── Form card ── */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--red);
+      padding: 2rem 2.5rem 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 10%;
+      width: 30%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), transparent);
+    }
+
+    .form-label {
+      display: block;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.4rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border-hi);
+      color: var(--text-hi);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 0.6rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--red-hi);
+      box-shadow: 0 0 0 1px var(--red), inset 0 0 8px rgba(139,0,0,0.08);
+    }
+
+    input[type="text"]::placeholder {
+      color: var(--text-dim);
+      font-weight: 300;
+    }
+
+    .form-connector {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--red);
+      margin: 0.2rem 0 1.2rem;
+      text-transform: uppercase;
+    }
+
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      margin-top: 1.8rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--red);
+      color: #f0ece0;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--red-hi);
+      box-shadow: 0 0 18px rgba(192,57,43,0.35);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(1px);
+    }
+
+    /* ── Intro text ── */
+    .intro-text {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .intro-text a {
+      color: var(--gold-hi);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+      transition: color 0.15s;
+    }
+
+    .intro-text a:hover {
+      color: #f0d060;
+    }
+
+    /* ── Caveats ── */
+    .caveats-heading {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+
+    ol.caveats {
+      list-style: none;
+      counter-reset: caveat-counter;
+      padding: 0;
+    }
+
+    ol.caveats li {
+      counter-increment: caveat-counter;
+      display: flex;
+      gap: 1rem;
+      font-size: 0.93rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    ol.caveats li:last-child {
+      border-bottom: none;
+    }
+
+    ol.caveats li::before {
+      content: counter(caveat-counter);
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--red-hi);
+      min-width: 1.4rem;
+      margin-top: 0.15rem;
+    }
+
+    ol.caveats li i {
+      font-style: italic;
+      color: var(--text);
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--border-hi);
+      padding-bottom: 2rem;
+    }
+  </style>
 </head>
-
-
 <body>
-<form action="/verify" method="POST">
-  <div>
-    <label for="first_band">Please enter the name of the first band.</label>
-    <input name="first_band" id="first_band" value="Bolt Thrower" />
-  </div>
-  <div>
-    <label for="second_band">Please enter the name of the second band.</label>
-    <input name="second_band" id="second_band" value="Black Sabbath" />
-  </div>
-  <div>
-    <button>Submit</button>
-  </div>
-</form>
-<p>Enter any two metal bands that were listed on <a href="https://www.metal-archives.com/">Metal Archives</a> as of 03/01/2024 to find the number of degrees of separation in between them.</p>
-<p>Please note that there are a few caveats.</p>
-<ol>
-    <li>All band names must be typed exactly how they are shown on Metal Archives. For instance, if one of the bands you're using is Motörhead, you would need to include the umlaut.</li>
-    <li>Some bands that, depending on your definition of metal, you might consider to be metal are not listed on Metal Archives. Led Zeppelin, for instance, is not present in the database. I do not control which bands are present on Metal Archives, so I don't have any control of what bands are in my database.</li>
-    <li>The script I'm using, such as it is, only creates a link between two bands if a musician has been in both. This includes live performances. It <i>does not</i> include guest appearances on albums. I'll work on fixing this issue at some point.</li>
-    <li>The presence of a band or artist in this list does not represent my endorsement of their beliefs, actions, or music. This website solely exists as an informative tool/source of trivia.</li>
-</ol>
+  <div class="page-wrap">
+    <header>
+      <h1 class="site-title"><span>666</span> Degrees</h1>
+      <p class="site-subtitle">Degrees of separation &mdash; metal bands</p>
+    </header>
 
+    <p class="intro-text">
+      Enter any two metal bands listed on <a href="https://www.metal-archives.com/" target="_blank" rel="noopener">Metal Archives</a> as of 03/01/2024 to find the number of degrees of separation between them.
+    </p>
 
+    <form action="/verify" method="POST">
+      <div class="form-card">
+        <div class="form-group">
+          <label class="form-label" for="first_band">First Band</label>
+          <input type="text" name="first_band" id="first_band" value="Bolt Thrower" />
+        </div>
+
+        <div class="form-connector">&#x2715;</div>
+
+        <div class="form-group">
+          <label class="form-label" for="second_band">Second Band</label>
+          <input type="text" name="second_band" id="second_band" value="Black Sabbath" />
+        </div>
+
+        <button type="submit">Find Connection</button>
+      </div>
+    </form>
+
+    <div class="ornament">&#x2666;&ensp;Caveats&ensp;&#x2666;</div>
+
+    <p class="caveats-heading">Please note the following</p>
+    <ol class="caveats">
+      <li>Band names must be typed exactly as shown on Metal Archives &mdash; including any special characters. For instance, Mot&ouml;rhead requires the umlaut.</li>
+      <li>Some bands you may consider metal are not listed on Metal Archives. Led Zeppelin, for instance, is not present. The database reflects Metal Archives&rsquo; own categorization, which is outside my control.</li>
+      <li>The presence of any band or artist in this database is not an endorsement of their beliefs, actions, or music. This site exists solely as an informative tool and source of trivia.</li>
+    </ol>
+
+    <footer>
+      data sourced from metal-archives.com &nbsp;&bull;&nbsp; built by sorinash
+    </footer>
+  </div>
 </body>
 </html>
-
